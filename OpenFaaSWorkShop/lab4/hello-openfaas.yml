@@ -7,3 +7,5 @@ functions:
     lang: python3
     handler: ./hello-openfaas
     image: takmnagaya/hello-openfaas:latest
+    environment:
+      combine_output: false
