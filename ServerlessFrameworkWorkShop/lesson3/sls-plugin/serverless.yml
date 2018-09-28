@@ -1,0 +1,15 @@
+service: sls-third-plugin # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+
+functions:
+  hello:
+    handler: handler.hello
+
+custom:
+  trace: true
+
+plugins:
+- sls-plugin
