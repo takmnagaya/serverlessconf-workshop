@@ -7,3 +7,5 @@ functions:
     lang: python3
     handler: ./issue-bot
     image: takmnagaya/issue-bot:latest
+    environment:
+      write_debug: true
