@@ -18,7 +18,7 @@ custom:
   stage: ${opt:stage, self:provider.stage}
 
 plugins:
-- serverless-download
+- sls-plugin
 
 # you can add CloudFormation resource templates here
 resources:
