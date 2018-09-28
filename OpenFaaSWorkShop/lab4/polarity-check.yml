@@ -6,4 +6,4 @@ functions:
   polarity-check:
     lang: python3
     handler: ./polarity-check
-    image: polarity-check:latest
+    image: takmnagaya/polarity-check:latest
