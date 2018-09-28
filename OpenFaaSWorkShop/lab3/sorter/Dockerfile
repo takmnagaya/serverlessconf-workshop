@@ -27,7 +27,7 @@ WORKDIR /home/app
 USER app
 
 # Populate example here - i.e. "cat", "sha512sum" or "node index.js"
-ENV fprocess="cat"
+ENV fprocess="sort"
 # Set to true to see request in function logs
 ENV write_debug="false"
 
