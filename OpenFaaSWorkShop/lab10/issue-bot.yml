@@ -12,4 +12,4 @@ functions:
       gateway_hostname: "gateway"
       positive_threshold: 0.25
     environment_file:
-    - env.yml
+    - auth-token
