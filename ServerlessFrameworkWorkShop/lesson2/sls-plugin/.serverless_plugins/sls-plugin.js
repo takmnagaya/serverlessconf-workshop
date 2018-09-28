@@ -3,12 +3,14 @@
 class ServerlessPlugin {
   constructor(serverless, options) {
     this.serverless = serverless;
+    this.provider = this.serverless.getProvider('aws');
+    this.region = this.provider.getRegion();
+    this.stage = this.provider.getStage();
     this.commands = {
       download: {
         usage: 'Download DynamoDB data',
         lifecycleEvents: [
-          'hello',
-          'world',
+          'download',
         ],
         options: {
           resource: {
@@ -30,28 +32,26 @@ class ServerlessPlugin {
       },
     };
     this.hooks = {
-      'before:welcome:hello': this.beforeWelcome.bind(this),
-      'welcome:hello': this.welcomeUser.bind(this),
-      'welcome:world': this.displayHelloMessage.bind(this),
-      'after:welcome:world': this.afterHelloWorld.bind(this),
+      'download:download': this.download.bind(this),
     };
     this.options = options;
   }
 
-  beforeWelcome() {
-    this.serverless.cli.log('Hello from Serverless!');
-  }
-
-  welcomeUser() {
-    this.serverless.cli.log('Your message:');
-  }
-
-  displayHelloMessage() {
-    this.serverless.cli.log(`${this.options.message}`);
-  }
-
-  afterHelloWorld() {
-    this.serverless.cli.log('Please come again!');
+  download() {
+    const tableName = this.serverless.service.resources.Resources[this.options.resource].Properties.TableName;
+    this.serverless.cli.log(this.options.stage);
+    this.serverless.cli.log(this.options.region);
+    this.serverless.cli.log(this.stage);
+    this.serverless.cli.log(this.region);
+    this.serverless.cli.log(tableName);
+    return this.provider.request('DynamoDB',
+      'scan',
+      {TableName: tableName},
+      this.options.stage,
+      this.options.region
+    ).then(result => {
+      this.serverless.cli.log(JSON.stringify(result.Items));
+    })
   }
 }
 
