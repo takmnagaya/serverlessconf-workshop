@@ -9,32 +9,25 @@ class ServerlessXRay {
   }
 
   enableXRay() {
-    let resources = this.serverless.service.provider.compiledCloudFormationTemplate.Resources;
-    if (this.serverless.service.custom.trace) {
-      // X-Ray有効化
-      for (let resource in resources) {
-        let type = resources[resource].Type;
-        if (type === 'AWS::Lambda::Function') {
-          resources[resource].Properties.TracingConfig = {
-            Mode: 'Active'
-          }
-        }
-      }
-      // IAMポリシーにX-Rayを利用可能にするポリシーを追加
-      resources.IamRoleLambdaExecution.Properties.Policies[0].PolicyDocument.Statement.push(
-        {
-          Effect: "Allow",
-          Action: [
-            "xray:PutTraceSegments",
-            "xray:PutTelemetryRecords"
-          ],
-          Resource: [
-            "*"
-          ]
-        }
-      );
-      this.serverless.service.provider.compiledCloudFormationTemplate.Resources = resources;
+    if (!this.serverless.service.custom || this.serverless.service.custom.trace !== true) {
+      return;
     }
+    this.serverless.service.getAllFunctions().forEach((functionName) => {
+      const functionLogicalId = this.provider.naming.getLambdaLogicalId(functionName);
+      this.serverless.service.provider.compiledCloudFormationTemplate
+        .Resources[functionLogicalId].Properties.TracingConfig = {
+        'Mode': 'Active'
+      };
+    });
+    this.serverless.service.provider.compiledCloudFormationTemplate.Resources
+      .IamRoleLambdaExecution.Properties.Policies[0].PolicyDocument.Statement.push({
+      "Effect": "Allow",
+      "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+      ],
+      "Resource": ["*"]
+    });
   }
 }
 
