@@ -7,19 +7,12 @@
 
 [ワークショップURL](https://github.com/kenfdev/workshop/tree/ja/translations/ja)
 
-### Lab1
-### Lab2
-### Lab3
-### Lab4
-### Lab5
-GitHubのBotを作る
-### Lab7
-Webページ
-### Lab8
-functionの非同期呼び出し
-### Lab9
-functionのオートスケール
-### Lab10
-Secrets
+OpenFaaSはLambda CloudFunctionと比べ、自分で管理する部分が増えるが、
+Dockerコンテナを運用できるところであればどこでも動くため、ベンダーロックインされることは少なくなる。
+
+OpenFaaSを本番環境で使用している事例は日本ではない。
 
 ## 第二部 Serverlessワークショップ
+- serverlessプラグインを作る！
+
+[ワークショップURL](https://github.com/horike37/serverless-plugin-workshop)
