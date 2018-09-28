@@ -9,3 +9,7 @@ functions:
     image: takmnagaya/issue-bot:latest
     environment:
       write_debug: true
+      gateway_hostname: "gateway"
+      positive_threshold: 0.25
+    environment_file:
+    - env.yml
