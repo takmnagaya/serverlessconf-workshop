@@ -4,19 +4,27 @@ class ServerlessPlugin {
   constructor(serverless, options) {
     this.serverless = serverless;
     this.commands = {
-      welcome: {
-        usage: 'Helps you start your first Serverless plugin',
+      download: {
+        usage: 'Download DynamoDB data',
         lifecycleEvents: [
           'hello',
           'world',
         ],
         options: {
-          message: {
+          resource: {
             usage:
-              'Specify the message you want to deploy '
-              + '(e.g. "--message \'My Message\'" or "-m \'My Message\'")',
+              'Specify the DynamoDB table'
+              + '(e.g. "--resource users" or "-r users")',
             required: true,
-            shortcut: 'm',
+            shortcut: 'r',
+          },
+          'target-stage': {
+            usage:
+              'Specify the target stage'
+              + '(e.g. "--target-stage dev" or "-s dev")',
+            required: false,
+            shortcut: 's',
+            default: 'dev',
           },
         },
       },
