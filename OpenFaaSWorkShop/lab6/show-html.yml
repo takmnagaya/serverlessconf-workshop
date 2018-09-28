@@ -7,3 +7,5 @@ functions:
     lang: python3
     handler: ./show-html
     image: takmnagaya/show-html:latest
+    environment:
+      content_type: text/html
