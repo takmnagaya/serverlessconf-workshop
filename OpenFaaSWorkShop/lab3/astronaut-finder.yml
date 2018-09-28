@@ -7,3 +7,5 @@ functions:
     lang: python3
     handler: ./astronaut-finder
     image: takmnagaya/astronaut-finder:latest
+    environment:
+      write_debug: true
