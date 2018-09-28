@@ -4,4 +4,4 @@ def handle(req):
         req (str): request body
     """
 
-    return req
+    return "Hello OpenFaaS"
